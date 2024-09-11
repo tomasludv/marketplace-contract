@@ -227,6 +227,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "mint",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "name",
 				"outputs": [
@@ -422,7 +435,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/USDC.sol": "USDC"
+			"contracts/TOKEN.sol": "Token"
 		},
 		"evmVersion": "cancun",
 		"libraries": {},
@@ -476,12 +489,12 @@
 				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
 			]
 		},
-		"contracts/USDC.sol": {
-			"keccak256": "0xd13b44ea7e68b61023748b5903034c3f3fc6e21be0a2ce50e9c60681c6e898e1",
+		"contracts/TOKEN.sol": {
+			"keccak256": "0x2b90f3550d014ec47a26bd9c67204ad0cf780fb1c78976b744b9706e164f3926",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b655289da138dcc810843464f96a70b4260c36d3cc66ba092abbce2f13b9ffd2",
-				"dweb:/ipfs/QmQySZdij4AVuRWs3YKDe8MjWTfsDst65PTenTZdXGQbi3"
+				"bzz-raw://28c4d664f3ca903f60c462faeb6b1c5674f854b298d56794568ca3e5aea0aae4",
+				"dweb:/ipfs/Qmciac3hBUkk1YwKWEPY6huELXwCB9sV1PLwNWbL9USGR1"
 			]
 		}
 	},
