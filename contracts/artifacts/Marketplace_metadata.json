@@ -18,38 +18,12 @@
 						"type": "uint256"
 					}
 				],
-				"name": "AlreadyListed",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "NotApprovedForMarketplace",
-				"type": "error"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "nftAddress",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "tokenId",
-						"type": "uint256"
-					}
-				],
 				"name": "NotListed",
 				"type": "error"
 			},
 			{
 				"inputs": [],
 				"name": "NotOwner",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "PriceMustBeAboveZero",
 				"type": "error"
 			},
 			{
@@ -161,6 +135,11 @@
 				"outputs": [
 					{
 						"components": [
+							{
+								"internalType": "bool",
+								"name": "active",
+								"type": "bool"
+							},
 							{
 								"internalType": "address",
 								"name": "seller",
@@ -294,11 +273,11 @@
 			]
 		},
 		"contracts/Marketplace.sol": {
-			"keccak256": "0xd51ab79345d382357e74d77ac1e26a93855ecea639c9aa54a1c300968abea9aa",
+			"keccak256": "0x40b86b5473a0b75639ce18eb4736c20d07c6805a58dbadbc4920fe5e30fc7de7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c3daa18682ef950885e4b89e507d677789ee383ca76f642f9f559f37b931ef05",
-				"dweb:/ipfs/QmPrGfedKUkC9SjWqFc3uTwjzqJci3TrTNpeYHExYpRFNw"
+				"bzz-raw://7d1cc3f1ef41eb170f5d65a3e3ebea943dd6f12612a47fe6d247272a3b2ff625",
+				"dweb:/ipfs/Qme3eqhHPH79AU5G9TxKFNgJiofbWwk8i4CXMeQKC3xW9P"
 			]
 		}
 	},
