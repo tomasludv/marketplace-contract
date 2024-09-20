@@ -46,7 +46,7 @@ contract Marketplace {
         address token
     ) external {
         listings[nft][id] = Listing(true,msg.sender, price, token);
-        IERC721(nft).safeTransferFrom(msg.sender, address(this), id, "");
+        IERC721(nft).transferFrom(msg.sender, address(this), id);
         emit ItemListed(msg.sender, nft, id, price, token);
     }
 
