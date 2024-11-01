@@ -27,6 +27,11 @@
 				"type": "error"
 			},
 			{
+				"inputs": [],
+				"name": "PriceMustBeAboveZero",
+				"type": "error"
+			},
+			{
 				"anonymous": false,
 				"inputs": [
 					{
@@ -60,7 +65,32 @@
 						"type": "address"
 					}
 				],
-				"name": "ItemBought",
+				"name": "ListingBought",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "seller",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "nft",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					}
+				],
+				"name": "ListingCanceled",
 				"type": "event"
 			},
 			{
@@ -97,7 +127,44 @@
 						"type": "address"
 					}
 				],
-				"name": "ItemListed",
+				"name": "ListingCreated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "seller",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "nft",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "ListingUpdated",
 				"type": "event"
 			},
 			{
@@ -113,7 +180,7 @@
 						"type": "uint256"
 					}
 				],
-				"name": "buyItem",
+				"name": "buyListing",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -131,37 +198,9 @@
 						"type": "uint256"
 					}
 				],
-				"name": "getListing",
-				"outputs": [
-					{
-						"components": [
-							{
-								"internalType": "bool",
-								"name": "active",
-								"type": "bool"
-							},
-							{
-								"internalType": "address",
-								"name": "seller",
-								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "price",
-								"type": "uint256"
-							},
-							{
-								"internalType": "address",
-								"name": "token",
-								"type": "address"
-							}
-						],
-						"internalType": "struct Listing",
-						"name": "",
-						"type": "tuple"
-					}
-				],
-				"stateMutability": "view",
+				"name": "cancelListing",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -187,9 +226,38 @@
 						"type": "address"
 					}
 				],
-				"name": "listItem",
+				"name": "createListing",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "nft",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					}
+				],
+				"name": "getListing",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -273,11 +341,11 @@
 			]
 		},
 		"contracts/Marketplace.sol": {
-			"keccak256": "0x1fdd222a0dc8afc8924d6dd63fe212fce9a4bda0844464ee2435c472074524e3",
+			"keccak256": "0x0b59b28b34e401d0153925933526fea3d99d11bd42d18bce07da407dafe7037a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c4a71ccba5b51caad1960e364eb38203bab7eacf5c77a085b6ecf5f264cedbd5",
-				"dweb:/ipfs/Qmb8B3zWkC5whUJD288PphUsDeycjrRfqSBAK9rVZyjain"
+				"bzz-raw://ee8df6c4187cead86f5b7f00220f23be8252a157b8e4315259f9b7af5968420c",
+				"dweb:/ipfs/QmQtEgoWYWxMLBiafrBpgaow4tWB8JVAutb9M426uoihK6"
 			]
 		}
 	},

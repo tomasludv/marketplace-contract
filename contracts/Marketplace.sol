@@ -6,8 +6,9 @@ import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 error NotListed(address nftAddress, uint256 tokenId);
 error NotOwner();
+error PriceMustBeAboveZero();
 
-event ItemListed(
+event ListingCreated(
     address indexed seller,
     address indexed nft,
     uint256 indexed id,
@@ -15,13 +16,21 @@ event ItemListed(
     address token
 );
 
-event ItemCanceled(
+event ListingUpdated(
+    address indexed seller,
+    address indexed nft,
+    uint256 indexed id,
+    uint256 price,
+    address token
+);
+
+event ListingCanceled(
     address indexed seller,
     address indexed nft,
     uint256 indexed id
 );
 
-event ItemBought(
+event ListingBought(
     address indexed buyer,
     address indexed nft,
     uint256 indexed id,
@@ -30,7 +39,6 @@ event ItemBought(
 );
 
 struct Listing {
-    bool active;
     address seller;
     uint256 price;
     address token;
@@ -39,15 +47,18 @@ struct Listing {
 contract Marketplace {
     mapping(address => mapping(uint256 => Listing)) private listings;
 
-    function listItem(
+    function createListing(
         address nft,
         uint256 id,
         uint256 price,
         address token
     ) external {
-        listings[nft][id] = Listing(true,msg.sender, price, token);
+        if (price == 0) {
+            revert PriceMustBeAboveZero();
+        }
+        listings[nft][id] = Listing(msg.sender, price, token);
         IERC721(nft).transferFrom(msg.sender, address(this), id);
-        emit ItemListed(msg.sender, nft, id, price, token);
+        emit ListingCreated(msg.sender, nft, id, price, token);
     }
 
     function updateListing(
@@ -57,20 +68,36 @@ contract Marketplace {
         address token
     ) external {
         Listing storage listing = listings[nft][id];
+        if (price == 0) {
+            revert PriceMustBeAboveZero();
+        }
+        if (listing.price == 0) {
+            revert NotListed(nft, id);
+        }
         if (listing.seller != msg.sender) {
             revert NotOwner();
         }
-        if (listing.active == false) {
-            revert NotListed(nft, id);
-        }
         listing.price = price;
         listing.token = token;
-        emit ItemListed(msg.sender, nft, id, price, token);
+        emit ListingUpdated(msg.sender, nft, id, price, token);
     }
 
-    function buyItem(address nft, uint256 id) external {
+    function cancelListing(address nft, uint256 id)external{
         Listing memory listing = listings[nft][id];
-        if (listings[nft][id].active == false) {
+        if (listing.price == 0) {
+            revert NotListed(nft, id);
+        }
+        if (listing.seller != msg.sender) {
+            revert NotOwner();
+        }
+        IERC721(nft).transferFrom(address(this), listing.seller, id);
+        delete listings[nft][id];
+        emit ListingCanceled(msg.sender, nft, id);
+}
+
+    function buyListing(address nft, uint256 id) external {
+        Listing memory listing = listings[nft][id];
+        if (listing.price == 0) {
             revert NotListed(nft, id);
         }
         IERC20(listing.token).transferFrom(
@@ -80,14 +107,15 @@ contract Marketplace {
         );
         IERC721(nft).transferFrom(address(this), msg.sender, id);
         delete (listings[nft][id]);
-        emit ItemBought(msg.sender, nft, id, listing.price, listing.token);
+        emit ListingBought(msg.sender, nft, id, listing.price, listing.token);
     }
 
      function getListing(address nft, uint256 id)
         external
         view
-        returns (Listing memory)
+        returns (uint256 price , address token)
     {
-        return listings[nft][id];
+        Listing memory listing = listings[nft][id];
+        return (listing.price,listing.token);
     }
 }
